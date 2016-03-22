@@ -10,15 +10,15 @@ import java.util.List;
 public class ReadCSV {
 	static String m_auto = null;
 	static boolean m_moveToNext = false;
-	static boolean m_defaultTomahawkPosition = false;
+	static boolean currentState;
 	static int lineToRefference;
 	static String value = null;//Holds the the specific object that we want's values
 	static int i = 0;
 
-	public ReadCSV(String auto, boolean moveToNext, boolean defaultTomahawkPosition) {
+	public ReadCSV(String auto, boolean moveToNext, boolean tomahawkStartingPosition) {
 		m_auto = auto;
 		m_moveToNext = moveToNext;
-		m_defaultTomahawkPosition = defaultTomahawkPosition;
+		currentState = tomahawkStartingPosition;
 	}
 
 	public static void main(String m_auto, boolean m_moveToNext) {
@@ -51,15 +51,15 @@ public class ReadCSV {
 			int loop = 0;//Integer to control loop timing
 
 			List<String> objects = new ArrayList<>();//Create a new List of strings which will hold each object retrieved from the line
-			while (!command[loop].equals("\"last\"")) {//Loop until we reach the word "last"
+			while (!command[loop].equals("last")) {//Loop until we reach the word last
 				objects.add(command[loop]);//Append the current object in string to the list
 				loop++;//Add toe the control integer so that the loop will move to the next object
 			}
 			while (i < objects.size()) {//while the static control integer at the beginning of the class remains less than the number of objects in the List
 				String element = objects.get(i);//Create a new string which will hold the current object
-				if (element == null || element ==  "\"last\"") {//Double check if the object is either null or equivalent to "last"
+				if (element == null || element ==  "last") {//Double check if the object is either null or equivalent to last
 					value = null;//if either if true the value  is set to null
-				} else if (element != null && element != "\"last\"") {//Else if the object is neither null nor equivalent to "last"
+				} else if (element != null && element != "last") {//Else if the object is neither null nor equivalent to last
 					value = element;//Set the final value to that object
 				}
 				if (m_moveToNext) {//If the command is given add to the integer and move to the next object
@@ -86,17 +86,18 @@ public class ReadCSV {
 		return value;
 	}
 
-	public boolean getTomahawkState(boolean m_defaultTomahawkPosition) {
+	public boolean getTomahawkState() {
 		String v = getValue();
-		if (v.equals("\"ba\"")) {
-			return !m_defaultTomahawkPosition;
-		} else
-			return m_defaultTomahawkPosition;
+		if (v.equals("ba")) {
+			currentState = !currentState;
+			return currentState;
+		}else 
+			return currentState;
 	}
 
 	public boolean getVisionInitialize() {
 		String v = getValue();
-		if (v.equals("\"sh\"")) {
+		if (v.equals("sh")) {
 			return true;
 		} else
 			return false;
