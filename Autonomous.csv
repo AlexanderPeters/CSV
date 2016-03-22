@@ -1,0 +1,12 @@
+"moat","d+10","d-10","t+10","t-10","ba","sh","last"
+
+Example of a CSV file line for one Autonomous
+Listed in order left to right
+Name
+Drive forward ten units (unit to be determined)
+Drive backward ten units (units to be determined)
+Turn Right 10 degrees
+Turn Left 10 degrees
+Battle Axes Up (Default position down however this can be changed)
+Shooter Automated Fire Start sequence
+End of command sequence
